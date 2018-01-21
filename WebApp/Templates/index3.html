@@ -1,0 +1,9 @@
+<html>
+<h1>NYC High Schools</h1>
+<p>There are {{ count }} high schools in NYC</p>
+<ul>
+  {% for school in schools %}
+    <p>{{ school.school_name }}</p>
+  {% endfor %}
+</ul>
+</html>

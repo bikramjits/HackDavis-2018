@@ -73,10 +73,13 @@ app = Flask(__name__)
 @app.route('/')
 def index():
   # school_count = School.select().count()
-  ranking = Final.column(4)
-  return render_template('index.html')
-@app.route('/schools/clemente')
-def school():
-    return render_template('school.html', ranking= ranking)
+    ranking = Final.column(0)
+    length= Final.num_rows
+    sno= np.arange(1, length, 1)
+  
+    return render_template('index.html', ranking= ranking, sno= sno)
+# @app.route('/schools/clemente')
+# def school():
+#     return render_template('school.html', ranking= ranking)
 if __name__ == '__main__':
     app.run(debug=True)
