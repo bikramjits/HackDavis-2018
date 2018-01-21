@@ -44,12 +44,14 @@ new_var = json_data["values"]
 pathz = []
 valuez = []
 
-for i in range(100): 
+for i in range(134): 
   path = json_data["GetAttributes"]["Content"]["Items"][i]["Path"]
   path = path[33:]
   path = path[:len(path) - 7]
   pathz.append(path)
   value = json_data["values"]["Content"]["Items"][i]["Content"]["Value"]
+  if (value == 0): 
+        value = 100000
   valuez.append(value)
 
 
