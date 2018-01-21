@@ -8,40 +8,43 @@ Bikramjit Singh Kukreja and Gaurav Mulchandani
 """
 import json
 import requests
+import pprint
 from requests.auth import HTTPBasicAuth
 
 #Take in Electricity Data from known buildings on Campus. 
 user = "ou\piapihack2018"
 passw =  "Go $ave energy, 2018!"
-url = "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=%20Element:{Name:=Electricity}%20Name:=Demand"  
+url="https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/batch"
+headers = {'content-type': 'application/json'}
+# url = "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=Element:{Name:=Electricity}%20Name:=Demand"  
 
-# url = " {  
-#   "GetAttributes": {  
-#    "Method": "GET",  
-#    "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=%20Element:{Name:=Electricity}%20Name:=Demand"  
-#   },  
-#   "values": {  
-#    "Method": "GET",  
-#    "RequestTemplate": {
-#      "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/streams/{0}/interpolated"
-#    },
-#    "ParentIds": ["GetAttributes"],  
-#    "Parameters": ["$.GetAttributes.Content.Items[*].WebId"]  
-#   }  
-# }  "
+body =  '{  \
+  "GetAttributes": {  \
+   "Method": "GET",  \
+   "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=Element:{Name:=Electricity}%20Name:=Demand&selectedFields=Items.WebId"  \
+  },\
+   "values": {  \
+   "Method": "GET",  \
+   "RequestTemplate": {\
+     "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/streams/{0}/value"\
+   },\
+   "ParentIds": ["GetAttributes"],  \
+   "Parameters": ["$.GetAttributes.Content.Items[*].WebId"]  \
+  }\
+}'
 
-req = requests.get(url, auth=HTTPBasicAuth(user, passw))
 
-print(req)
+# print("!")
+req = requests.post(url, data= body,  headers= headers, auth=(user, passw))
+# print("!")
+# print(req.text)
 
 json_data = json.loads(req.text)
 
-new_var = json_data["Items"][0]["Value"]
-# ["Items"][0]["Value"]
+new_var = json_data["values"]["Content"]["Items"]
+# [0]["Content"]["Value"]
 
-print(new_var)
-
-
+pprint.pprint(new_var)
 
 #Convert json into python objects (Probably for loop for multiple buildings considering
 # the length of the request time). 
