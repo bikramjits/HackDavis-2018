@@ -27,7 +27,7 @@ body =  '{  \
    "values": {  \
    "Method": "GET",  \
    "RequestTemplate": {\
-     "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/streams/{0}/interpolated?startTime=*-1d-1h&endTime=*-1d&interval=1d"\
+     "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/streams/{0}/interpolated?startTime=*-1d-7h&interval=1d"\
    },\
    "ParentIds": ["GetAttributes"],  \
    "Parameters": ["$.GetAttributes.Content.Items[*].WebId"]  \
@@ -36,19 +36,21 @@ body =  '{  \
 
 req = requests.post(url, data= body,  headers= headers, auth=(user, passw))
 json_data = json.loads(req.text)
+# pprint.pprint(json_data)
 
 new_var = json_data["values"]["Content"]["Items"]
-pprint.pprint(new_var)
+
 new_arr = []
 for i in range(100): 
-  if "Value" in new_var[i]["Content"]: 
-    new_arr.append(new_var[i]["Content"]["Value"])
-
-
-#Convert json into python objects (Probably for loop for multiple buildings considering
-# the length of the request time). 
+  if "Value" in new_var[i]["Content"]["Items"][0]: 
+    new_arr.append(new_var[i]["Content"]["Items"][0]["Value"])
 
 print(new_arr)
+
+# #Convert json into python objects (Probably for loop for multiple buildings considering
+# # the length of the request time). 
+
+# print(new_arr)
 
 
 #Logic for calculating Occupancy and ranking systems. 
