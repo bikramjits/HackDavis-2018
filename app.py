@@ -7,6 +7,7 @@ By
 Bikramjit Singh Kukreja and Gaurav Mulchandani
 """
 import json
+import numpy as np
 import requests
 import pprint
 from requests.auth import HTTPBasicAuth
@@ -42,9 +43,16 @@ req = requests.post(url, data= body,  headers= headers, auth=(user, passw))
 json_data = json.loads(req.text)
 
 new_var = json_data["values"]["Content"]["Items"]
+
+new_arr = []
+for i in range(100): 
+	# if "Value" in new_var[i]["Content"]: 
+	new_arr.append(new_var[i]["Content"]["Value"])
+
+
 # [0]["Content"]["Value"]
 
-pprint.pprint(new_var)
+pprint.pprint(new_arr)
 
 #Convert json into python objects (Probably for loop for multiple buildings considering
 # the length of the request time). 
