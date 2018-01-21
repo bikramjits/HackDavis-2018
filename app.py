@@ -30,16 +30,16 @@ url = "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databa
 #   }  
 # }  "
 
-req = requests.post(url, auth=HTTPBasicAuth(user, passw))
+req = requests.get(url, auth=HTTPBasicAuth(user, passw))
 
 print(req)
 
 json_data = json.loads(req.text)
 
-new_var = json_data["GetAttributes"]["Values"]["Content"]["Items"][0]["Content"]["Items"][0]["Value"]
+new_var = json_data["Items"][0]["Value"]
+# ["Items"][0]["Value"]
 
 print(new_var)
-
 
 
 
