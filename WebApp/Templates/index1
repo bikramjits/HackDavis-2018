@@ -1,0 +1,72 @@
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+  <div id="contacts">
+    <table>
+      <thead>
+        <tr>
+          <th class="sort" data-sort="name">Name</th>
+          <th class="sort" data-sort="age">Age</th>
+          <th class="sort" data-sort="city">City</th>
+          <th colspan="2">
+            <input type="text" class="search" placeholder="Search contact" />
+          </th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        <tr>
+          <td class="id" style="display:none;">1</td>
+          <td class="name">Jonny</td>
+          <td class="age">27</td>
+          <td class="city">Stockholm</td>
+          <td class="edit"><button class="edit-item-btn">Edit</button></td>
+          <td class="remove"><button class="remove-item-btn">Remove</button></td>
+        </tr>
+        <tr>
+          <td class="id" style="display:none;">2</td>
+          <td class="name">Jonas</td>
+          <td class="age">-132</td>
+          <td class="city">Berlin</td>
+          <td class="edit"><button class="edit-item-btn">Edit</button></td>
+          <td class="remove"><button class="remove-item-btn">Remove</button></td>
+        </tr>
+        <tr>
+          <td class="id" style="display:none;">3</td>
+          <td class="name">Gustaf</td>
+          <td class="age">-23</td>
+          <td class="city">Sundsvall</td>
+          <td class="edit"><button class="edit-item-btn">Edit</button></td>
+          <td class="remove"><button class="remove-item-btn">Remove</button></td>
+        </tr>
+        <tr>
+          <td class="id" style="display:none;">4</td>
+          <td class="name">Fredrik</td>
+          <td class="age">26</td>
+          <td class="city">Goteborg</td>
+          <td class="edit"><button class="edit-item-btn">Edit</button></td>
+          <td class="remove"><button class="remove-item-btn">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <td class="name">
+        <input type="hidden" id="id-field" />
+        <input type="text" id="name-field" placeholder="Name" />
+      </td>
+      <td class="age">
+        <input type="text" id="age-field" placeholder="Age" />
+      </td>
+      <td class="city">
+        <input type="text" id="city-field" placeholder="City" />
+      </td>
+      <td class="add">
+        <button id="add-btn">Add</button>
+        <button id="edit-btn">Edit</button>
+      </td>
+    </table>
+
+    <p>This is just a simple example showing how to use <code>add()</code>, <code>values()</code> and <code>remove()</code>. The example have bugs (not List.js (I hope ;)) so I do not recommend copy-paste programming.</p>
+  </div>
+</html>
