@@ -6,7 +6,7 @@ Building Occupancy Finder for UC Davis
 By 
 Bikramjit Singh Kukreja and Gaurav Mulchandani
 """
-
+import json
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -15,13 +15,30 @@ user = "ou\piapihack2018"
 passw =  "Go $ave energy, 2018!"
 url = "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=%20Element:{Name:=Electricity}%20Name:=Demand"  
 
-req = requests.post(url, data = {}, auth=HTTPBasicAuth(user, passw))
+# url = " {  
+#   "GetAttributes": {  
+#    "Method": "GET",  
+#    "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/attributes/search?databasewebid=F1RDbgZy4oKQ9kiBiZJTW7eugwJztPDnRh5UOIr8WoWgnq3gVVRJTC1BRlxDRUZT&query=%20Element:{Name:=Electricity}%20Name:=Demand"  
+#   },  
+#   "values": {  
+#    "Method": "GET",  
+#    "RequestTemplate": {
+#      "Resource": "https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/streams/{0}/interpolated"
+#    },
+#    "ParentIds": ["GetAttributes"],  
+#    "Parameters": ["$.GetAttributes.Content.Items[*].WebId"]  
+#   }  
+# }  "
 
-json_data = json.load(req)
+req = requests.post(url, auth=HTTPBasicAuth(user, passw))
 
-new_var = json_data["GetAttributes"]["Headers"]["Content"]["Items"][0]
+print(req)
 
+json_data = json.loads(req.text)
 
+new_var = json_data["GetAttributes"]["Values"]["Content"]["Items"][0]["Content"]["Items"][0]["Value"]
+
+print(new_var)
 
 
 
