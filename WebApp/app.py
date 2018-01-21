@@ -22,6 +22,7 @@ from datascience import *
 user = "ou\piapihack2018"
 passw =  "Go $ave energy, 2018!"
 url="https://ucd-piwebapi.ou.ad3.ucdavis.edu/piwebapi/batch"
+leng=100
 headers = {'content-type': 'application/json'}
 
 body =  '{  \
@@ -46,7 +47,7 @@ json_data = json.loads(req.text)
 new_var = json_data["values"]["Content"]["Items"]
 
 new_arr = []
-for i in range(100):
+for i in range(leng):
 	new_arr.append(new_var[i]["Content"]["Value"])
 
 #Convert json into python objects (Probably for loop for multiple buildings considering
@@ -73,10 +74,13 @@ app = Flask(__name__)
 @app.route('/')
 def index():
   # school_count = School.select().count()
-  ranking = Final.column(4)
-  return render_template('index.html')
-@app.route('/schools/clemente')
-def school():
-    return render_template('school.html', ranking= ranking)
+    ranking = Final.column(0)
+    length= Final.num_rows
+    sno= np.arange(1, length, 1)
+  
+    return render_template('index.html', ranking= ranking, sno= sno)
+# @app.route('/schools/clemente')
+# def school():
+#     return render_template('school.html', ranking= ranking)
 if __name__ == '__main__':
     app.run(debug=True)
